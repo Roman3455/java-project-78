@@ -10,7 +10,9 @@ public abstract class BaseSchema<T> {
     protected boolean isRequired = false;
 
     public boolean isValid(T value) {
-        if (!isRequired && (value == null || (value instanceof String && ((String) value).isEmpty()))) {
+        if (!isRequired && (value == null
+                || (value instanceof String && ((String) value).isEmpty()))
+        ) {
             return true;
         }
         return checkList.stream().allMatch(check -> check.test(value));

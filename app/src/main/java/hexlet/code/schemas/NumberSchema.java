@@ -8,9 +8,8 @@ public class NumberSchema extends BaseSchema<Integer> {
         return this;
     }
 
-    public NumberSchema range(int startsWith, int endsWith) {
+    public void range(int startsWith, int endsWith) {
         checkList.removeIf(checkList::contains);
         checkList.add(val -> val == null || val >= startsWith && val <= endsWith);
-        return this;
     }
 }
