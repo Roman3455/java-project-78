@@ -1,8 +1,10 @@
 package hexlet.code;
 
+import hexlet.code.schemas.BaseSchema;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -78,7 +80,7 @@ public class AppTest {
     }
 
     @Test
-    void testMapSchema() {
+    void testMapSchema1() {
         var schema = validator.map();
 
         var actual1 = schema.isValid(null);
@@ -103,5 +105,33 @@ public class AppTest {
         data.put("key2", "value2");
         var actual6 = schema.isValid(data);
         assertThat(actual6).isTrue();
+    }
+
+    @Test
+    void testMapSchema2() {
+        var schema = validator.map();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+
+        schemas.put("firstName", validator.string().required());
+        schemas.put("lastName", validator.string().required().minLength(2));
+        schema.shape(schemas);
+
+        Map<String, String> human1 = new HashMap<>();
+        human1.put("firstName", "John");
+        human1.put("lastName", "Smith");
+        var actual1 = schema.isValid(human1);
+        assertThat(actual1).isTrue();
+
+        Map<String, String> human2 = new HashMap<>();
+        human2.put("firstName", "John");
+        human2.put("lastName", null);
+        var actual2 = schema.isValid(human2);
+        assertThat(actual2).isFalse();
+
+        Map<String, String> human3 = new HashMap<>();
+        human3.put("firstName", "Anna");
+        human3.put("lastName", "B");
+        var actual3 = schema.isValid(human3);
+        assertThat(actual3).isFalse();
     }
 }
