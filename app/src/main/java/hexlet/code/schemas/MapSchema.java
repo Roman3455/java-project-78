@@ -1,8 +1,15 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
+import java.util.Objects;
 
-public class MapSchema extends BaseSchema<Map<?, ?>> {
+public final class MapSchema extends BaseSchema<Map<?, ?>> {
+
+    @Override
+    public BaseSchema<Map<?, ?>> required() {
+        checkList.put("required", Objects::nonNull);
+        return this;
+    }
 
     public MapSchema sizeof(int size) {
         checkList.put("sizeof", val -> val == null || val.size() == size);

@@ -1,6 +1,14 @@
 package hexlet.code.schemas;
 
-public class NumberSchema extends BaseSchema<Integer> {
+import java.util.Objects;
+
+public final class NumberSchema extends BaseSchema<Integer> {
+
+    @Override
+    public BaseSchema<Integer> required() {
+        checkList.put("required", Objects::nonNull);
+        return this;
+    }
 
     public NumberSchema positive() {
         checkList.put("positive", val -> val == null || val > 0);

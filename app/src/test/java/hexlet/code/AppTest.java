@@ -9,7 +9,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
-    public Validator validator = new Validator();
+    private final Validator validator = new Validator();
 
     @Test
     void testStringSchema() {
